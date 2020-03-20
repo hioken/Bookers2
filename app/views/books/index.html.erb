@@ -1,0 +1,22 @@
+<%= render 'layouts/profile', user: @user, book: @book %>
+
+<div class="col-xs-9">
+  <h2>Books</h2>
+
+  <table cellpadding="2" cellspacing="5"><tr>
+	<th></th>
+	<th>Title</th>
+	<th>Opinion</th>
+	</tr>
+
+	<% @books.each do |book| %>
+	  <tr>
+		　　<td><a href=""><%= attachment_image_tag book.user, :profile_image, fallback: "no_image.png", class: "attachment user profile_image fallback index_image" %></a></td>
+		  <td><%= link_to book.title, book_path(book) %></td>
+		<td><%= book.body %></td>
+	  </tr>
+	<% end %>
+  </table>
+</div>
+</div>
+</div>
