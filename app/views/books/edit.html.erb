@@ -14,6 +14,7 @@
         <ul>
             <% @book.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
+                <li>error</li>
             <% end %>
         </ul>
     </div>
@@ -25,10 +26,10 @@
   <p>Opinion</p>
   <%= f.text_area :body, class: "col-xs-12 book_body" %>
 
-  <%= f.submit "Create Book", class: "btn btn-primary col-xs-12" %>
+  <%= f.submit "Update Book", class: "btn btn-primary col-xs-12" %>
 <% end %>
-    <a class="book_22727" href="/books/22727">Show</a> |
-    <a class="back" href="/books">Back</a>
+    <%= link_to "Show", book_path(params[:id])  %> |
+    <%= link_to "Back", books_path %>
     </div>
     <div class="col-md-3"></div>
 </div>

@@ -1,5 +1,5 @@
-<div class="container">
-<div class="row">
+<div class="container clearfix">
+<div class="row clearfix">
 <div class="col-xs-3">
   <h2>User info</h2>
     <%= attachment_image_tag user, :profile_image, :fill, 50, 50, format: 'png', fallback: "no_image.png", class: "attachment user profile_image fallback pro_image" %>
@@ -7,15 +7,15 @@
     <tbody><tr></tr>
     <tr>
     	 <th>name</th>
-    	 <th><%= current_user.name %></th>
+    	 <th><%= user.name %></th>
     </tr>
      <tr>
     	 <th>introduction</th>
-    	 <th><%= current_user.introduction %></th>
+    	 <th><%= user.introduction %></th>
      </tr>
     </tbody>
   </table>
-  <%= link_to "", home_path, class: "btn btn-default glyphicon glyphicon-wrench" %>
+  <%= link_to "", edit_user_path(current_user.id) , class: "btn btn-default glyphicon glyphicon-wrench" %>
 
 
     <h2>New book</h2>
@@ -27,6 +27,7 @@
         <ul>
             <% book.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
+                <li>error</li>
             <% end %>
         </ul>
     </div>
@@ -41,4 +42,38 @@
   <%= f.submit "Create Book", class: "btn btn-primary col-xs-12" %>
 <% end %>
 
+</div>
+
+<div class="col-xs-9">
+  <h2><% title %></h2>
+
+  <table cellpadding="2" cellspacing="5"><tr>
+  <% if controller.controller_name == "users" && controller.action_name == "index" %>
+  <th>image</th>
+  <th>name</th>
+  <th></th>
+  <% else %>
+  <th></th>
+  <th>Title</th>
+  <th>Opinion</th>
+  <% end %>
+  </tr>
+
+  <% books.each do |book| %>
+
+      <% if controller.controller_name == "users" && controller.action_name == "index" %>
+      <td><%= attachment_image_tag book, :profile_image, fallback: "no_image.png", class: "attachment user profile_image fallback index_image" %></td>
+      <td><%= book.name %></td>
+        <td><%= link_to "Show", user_path(book.id) %></td>
+      <% else %>
+    <tr>
+      <td><%= link_to user_path(book.user) do %><%= attachment_image_tag book.user, :profile_image, fallback: "no_image.png", class: "attachment user profile_image fallback index_image" %><% end %></td>
+        <td><%= link_to book.title, book %></td>
+        <td><%= book.body %></td>
+      <% end %>
+      </tr>
+  <% end %>
+  </table>
+</div>
+</div>
 </div>

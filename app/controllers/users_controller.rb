@@ -1,32 +1,41 @@
 class UsersController < ApplicationController
+
+  before_action :authenticate_user!
+
   def index
-  	
+  	@users = User.all
+    @books = Book.all
+    @book = Book.new
   end
 
   def show
-  	
+  	@user = User.find(params[:id])
+    @books = @user.books
+    @book = Book.new
   end
 
   def new
   	@book = Book.new
   end
 
-  def create
-  	@book = Book.new(book_params)
-  	@book.save
-  	redirect_to home_path
+  def edit
+    @user = User.find(params[:id])
+    if current_user.id != @user.id
+      redirect_to user_path(current_user)
+    end
   end
 
   def update
-  	
-  end
-
-  def destroy
-  	
+  	@user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to user_path(@user.id), notice:"Book was successfully updated."
+    else
+      render action: :edit
+    end
   end
 
   private
-    def book_params
-   	  params.require(:book).permit(:title, :body)
+    def user_params
+   	  params.require(:user).permit(:name, :introduction, :profile_image)
     end
 end

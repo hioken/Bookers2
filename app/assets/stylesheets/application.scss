@@ -16,6 +16,16 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.alert{
+    margin: 50px 0 ;
+}
+
 /* 頭部分卍 */
 header {
 	color: white;
